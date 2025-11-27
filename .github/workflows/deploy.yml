@@ -1,0 +1,56 @@
+name: Deploy Link Shortener Module
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    # variables
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_REGION: ${{ secrets.AWS_REGION }}
+
+    steps:
+      # 1. Checkout
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # 2. Node
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 22
+
+      # 3. Install
+      - name: Install dependencies
+        working-directory: app
+        run: npm install
+
+      # 4. Build
+      - name: Build app
+        working-directory: app
+        run: npm run build
+
+      # 5. Setup Terraform
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      # 6. terraform init
+      - name: Terraform Init
+        working-directory: terraform
+        run: terraform init
+
+      # 7. terraform plan
+      - name: Terraform Plan
+        working-directory: terraform
+        run: terraform plan
+
+      # 8. terraform apply
+      - name: Terraform Apply
+        working-directory: terraform
+        run: terraform apply -auto-approve
