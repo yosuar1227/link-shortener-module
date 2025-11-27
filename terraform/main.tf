@@ -103,7 +103,7 @@ resource "aws_api_gateway_deployment" "shortenLinkGtwDeploy" {
   depends_on = [ 
     aws_api_gateway_integration.lmbGtwShortenLinkIntegration,
     aws_lambda_permission.shortenLinkGtwPermissions
-    ]
+  ]
 }
 //STAGE 
 resource "aws_api_gateway_stage" "shortenLinkGtwStage" {
