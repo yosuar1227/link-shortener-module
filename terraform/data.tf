@@ -1,6 +1,6 @@
 data "archive_file" "shortenLinkLambda" {
   type        = "zip"
-  source_file = "${path.module}./app/dist/${var.shortenLinklambda}.js"
+  source_file = "${path.module}/../app/dist/${var.shortenLinklambda}.js"
   output_path = "${path.module}/files/lambda_register_user.zip"
 }
 

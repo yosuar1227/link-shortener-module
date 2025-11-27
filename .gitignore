@@ -5,6 +5,8 @@
 # Dependencias
 node_modules/
 
+files/
+
 # Builds / Outputs
 dist/
 build/
