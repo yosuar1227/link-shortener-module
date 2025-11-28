@@ -14,6 +14,7 @@ type LinkDataForDb = {
     shortUrl: string,
     code: string,
     created: string,
+    totalClicks: number,
 }
 
 const shortenLinkLambda = async (
@@ -41,6 +42,7 @@ const shortenLinkLambda = async (
         shortUrl: `${SHORT_URL_PART}/${code}`,
         code: code,
         created: new Date().toISOString(),
+        totalClicks: 0
     };
 
     const resp = await new DynamoService().save(item);
